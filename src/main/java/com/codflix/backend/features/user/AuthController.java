@@ -51,7 +51,28 @@ public class AuthController {
 
     public String signUp(Request request, Response response) {
         Map<String, Object> model = new HashMap<>();
-        return Template.render("auth_signup.html", model);
+        if (request.requestMethod().equals("GET")) {
+            return Template.render("auth_signup.html", model);
+        }
+        Map<String, String> query = URLUtils.decodeQuery(request.body());
+        String email = query.get("email");
+        String password = query.get("password");
+        String passwordConfirm = query.get("password_confirm");
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println(passwordConfirm);
+
+        if (!password.equals(passwordConfirm) ) {
+            return "KO";
+        }
+
+       if (!userDao.insertNewUser(email,password)){
+           return "bad subscription";
+       }
+
+
+
+       return "OK";
     }
 
     public String logout(Request request, Response response) {
