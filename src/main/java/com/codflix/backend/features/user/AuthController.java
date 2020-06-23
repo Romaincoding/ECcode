@@ -70,9 +70,23 @@ public class AuthController {
            return "bad subscription";
        }
 
+        // Authenticate user
+        User user = userDao.getUserByCredentials(email, password);
+        if (user == null) {
+            logger.info("User not found. Redirect to login");
+            response.removeCookie("session");
+            response.redirect("/login");
+            return "KO";
+        }
 
+        // Create session
+        Session session = request.session(true);
+        session.attribute("user_id", user.getId());
+        response.cookie("/", "user_id", "" + user.getId(), 3600, true);
 
-       return "OK";
+        // Redirect to medias page
+        response.redirect(Conf.ROUTE_LOGGED_ROOT);
+        return "OK";
     }
 
     public String logout(Request request, Response response) {
