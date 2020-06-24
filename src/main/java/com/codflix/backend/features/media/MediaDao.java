@@ -29,14 +29,20 @@ public class MediaDao {
         return medias;
     }
 
-    public List<Media> filterMedias(String title, String type) {
+
+    public List<Media> filterMedias(String title, String type, String genre) {
         if (type == null) {
             type = "";
         }
         if (title == null) {
             title = "";
         }
-        String s = "SELECT * FROM media WHERE title LIKE '" + title + "%' AND type LIKE '%" + type + "%' ORDER BY release_date DESC";
+
+        if (genre == null) {
+            genre = "";
+        }
+
+        String s = "SELECT * FROM media WHERE title LIKE '" + title + "%' AND type LIKE '%" + type + "%' AND genre_id LIKE '%" + genre + "' ORDER BY release_date DESC";
         System.out.println("sql=" + s);
         List<Media> medias = new ArrayList<>();
 
