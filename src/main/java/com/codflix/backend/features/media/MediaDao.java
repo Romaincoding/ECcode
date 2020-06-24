@@ -30,7 +30,14 @@ public class MediaDao {
     }
 
     public List<Media> filterMedias(String title, String type) {
-        String s = "SELECT * FROM media WHERE title LIKE '%" + title + "%' AND type LIKE '%" + type + "%' ORDER BY release_date DESC";
+        if (type == null) {
+            type = "";
+        }
+        if (title == null) {
+            title = "";
+        }
+        String s = "SELECT * FROM media WHERE title LIKE '" + title + "%' AND type LIKE '%" + type + "%' ORDER BY release_date DESC";
+        System.out.println("sql=" + s);
         List<Media> medias = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
