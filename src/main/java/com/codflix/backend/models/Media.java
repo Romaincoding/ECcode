@@ -11,8 +11,10 @@ public class Media {
     private Date releaseDate;
     private String summary;
     private String trailerUrl;
+    private String imageUrl;
 
-    public Media(int id, int genreId, String title, String type, String status, Date releaseDate, String summary, String trailerUrl) {
+
+    public Media(int id, int genreId, String title, String type, String status, Date releaseDate, String summary, String trailerUrl,String imageUrl) {
         this.id = id;
         this.genreId = genreId;
         this.title = title;
@@ -21,9 +23,11 @@ public class Media {
         this.releaseDate = releaseDate;
         this.summary = summary;
         this.trailerUrl = trailerUrl;
+        this.imageUrl = imageUrl;
+
     }
 
-    @Override
+   @Override
     public String toString() {
         return "Media{" +
                 "id=" + id +
@@ -31,9 +35,10 @@ public class Media {
                 ", title='" + title + '\'' +
                 ", type='" + type + '\'' +
                 ", status='" + status + '\'' +
-                ", releaseDate=" + releaseDate +
+                ", releaseDa te=" + releaseDate +
                 ", summary='" + summary + '\'' +
                 ", trailerUrl='" + trailerUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 
@@ -99,6 +104,14 @@ public class Media {
 
     public void setTrailerUrl(String trailerUrl) {
         this.trailerUrl = trailerUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 
