@@ -30,7 +30,7 @@ public class MediaDao {
     }
 
 
-    public List<Media> filterMedias(String title, String type, String genre) {
+    public List<Media> filterMedias(String title, String type, String genre, String date) {
         if (type == null) {
             type = "";
         }
@@ -42,8 +42,27 @@ public class MediaDao {
             genre = "";
         }
 
-        String s = "SELECT * FROM media WHERE title LIKE '" + title + "%' AND type LIKE '%" + type + "%' AND genre_id LIKE '%" + genre + "' ORDER BY release_date DESC";
-        System.out.println("sql=" + s);
+        if (date == null) {
+            date = "";
+        }
+
+        String dateSql = null;
+
+        switch(date) {
+            case "1999" :
+                dateSql = "AND `release_date` < '2000-01-01'";
+                break;
+            case "2000" :
+                dateSql = "AND `release_date` >= '2000-01-01' AND `release_date` <= '2009-12-31'";
+                break;
+            case "2010" :
+                dateSql = "AND `release_date` > '2009-12-31'";
+                break;
+
+            default:
+                System.out.println("error date");
+        }
+        String s = "SELECT * FROM media WHERE title LIKE '" + title + "%' AND type LIKE '%" + type + "%' AND genre_id LIKE '%" + genre + "' "+ dateSql +" ORDER BY release_date DESC";
         List<Media> medias = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();

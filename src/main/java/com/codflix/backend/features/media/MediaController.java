@@ -21,11 +21,12 @@ public class MediaController {
         String title = request.queryParams("title");
         String type = request.queryParams("type");
         String genre = request.queryParams("genre");
+        String date = request.queryParams("year");
 
         if (title == null && type == null) {
             medias = mediaDao.getAllMedias();
         } else {
-            medias = mediaDao.filterMedias(title,type, genre);
+            medias = mediaDao.filterMedias(title,type, genre, date);
 
         }
 
