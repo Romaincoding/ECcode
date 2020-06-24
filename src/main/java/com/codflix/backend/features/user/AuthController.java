@@ -4,12 +4,14 @@ import com.codflix.backend.core.Conf;
 import com.codflix.backend.core.Template;
 import com.codflix.backend.models.User;
 import com.codflix.backend.utils.URLUtils;
+import com.google.common.hash.Hashing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.Session;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +33,7 @@ public class AuthController {
         String password = query.get("password");
 
         // Authenticate user
-        User user = userDao.getUserByCredentials(email, password);
+        User user = userDao.getUserByCredentials(email, hash(password));
         if (user == null) {
             logger.info("User not found. Redirect to login");
             response.removeCookie("session");
@@ -66,7 +68,7 @@ public class AuthController {
             return "KO";
         }
 
-       if (!userDao.insertNewUser(email,password)){
+       if (!userDao.insertNewUser(email,hash(password))){
            return "bad subscription";
        }
 
@@ -99,5 +101,18 @@ public class AuthController {
         response.redirect("/");
 
         return "";
+    }
+
+    /***
+     * Function that hashes a password in sha-256
+     * @param password of the user
+     * @return String of Hashed password
+     */
+    public String hash(String password) {
+        String passwordHashed = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
+        System.out.println(passwordHashed);
+        return passwordHashed;
     }
 }
