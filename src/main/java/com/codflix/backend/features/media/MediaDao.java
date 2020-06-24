@@ -30,12 +30,12 @@ public class MediaDao {
     }
 
     public List<Media> filterMedias(String title) {
+        String s = "SELECT * FROM media WHERE title LIKE '%"+title+"%'";
         List<Media> medias = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE title=? ORDER BY release_date DESC");
-            st.setString(1, title);
+            PreparedStatement st = connection.prepareStatement(s);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 medias.add(mapToMedia(rs));
@@ -46,6 +46,8 @@ public class MediaDao {
 
         return medias;
     }
+
+
 
     public Media getMediaById(int id) {
         Media media = null;
@@ -76,7 +78,9 @@ public class MediaDao {
                 rs.getString(5), // status
                 DATE_FORMAT.parse(rs.getString(6)), // release_date
                 rs.getString(7), // summary
-                rs.getString(8) // trailer_url
+                rs.getString(8),// trailer_url
+                rs.getString(9) // IMAGE_url
+
         );
     }
 }
