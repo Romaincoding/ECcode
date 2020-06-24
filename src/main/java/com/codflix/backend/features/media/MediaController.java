@@ -20,12 +20,12 @@ public class MediaController {
 
         String title = request.queryParams("title");
         String type = request.queryParams("type");
-       // medias=mediaDao.filterMedias(title,type);
+        String genre = request.queryParams("genre");
 
         if (title == null && type == null) {
             medias = mediaDao.getAllMedias();
         } else {
-            medias = mediaDao.filterMedias(title,type);
+            medias = mediaDao.filterMedias(title,type, genre);
 
         }
 
