@@ -29,7 +29,7 @@ public class MediaDao {
         return medias;
     }
 
-    public List<Media> filterMedias(String title) {
+    public List<Media> filterMedias(String title, String type, int genre,int year) {
         String s = "SELECT * FROM media WHERE title LIKE '%"+title+"%'";
         List<Media> medias = new ArrayList<>();
 
@@ -37,6 +37,25 @@ public class MediaDao {
         try {
             PreparedStatement st = connection.prepareStatement(s);
             ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                medias.add(mapToMedia(rs));
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return medias;
+    }
+
+    public List<Media> filterMediasByGenre(int genre) {
+        List<Media> medias = new ArrayList<>();
+        Connection connection = Database.get().getConnection();
+        System.out.println("j'arrive la?");
+        try {
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE genre_id=? ORDER BY release_date DESC");
+            st.setInt(1, genre);
+            ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 medias.add(mapToMedia(rs));
             }

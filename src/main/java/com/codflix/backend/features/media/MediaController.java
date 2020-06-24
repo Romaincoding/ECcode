@@ -1,6 +1,8 @@
 package com.codflix.backend.features.media;
 
 import com.codflix.backend.core.Template;
+import com.codflix.backend.features.genre.GenreDao;
+import com.codflix.backend.models.Genre;
 import com.codflix.backend.models.Media;
 import spark.Request;
 import spark.Response;
@@ -12,11 +14,11 @@ import java.util.Map;
 
 public class MediaController {
     private final MediaDao mediaDao = new MediaDao();
-
+//améliorer la fonction pour qu'elle gère les filtres genre, année et type
     public String list(Request request, Response response) {
         List<Media> medias;
 
-        String title = request.queryParams("titl");
+        String title = request.queryParams("title");
 
         if (title != null && !title.isEmpty()) {
             medias = mediaDao.filterMedias(title);
@@ -36,5 +38,23 @@ public class MediaController {
         Map<String, Object> model = new HashMap<>();
         model.put("media", media);
         return Template.render("media_detail.html", model);
+    }
+
+    public String listGenre(Request request, Response response) {
+        List<Media> medias;
+        System.out.println("je passe bien dans listGenre");
+
+        int genre = Integer.parseInt(request.queryParams("genre"));
+        System.out.println(genre);
+
+        if (genre != 0) {
+            medias = mediaDao.filterMediasByGenre(genre);
+        } else {
+            medias = mediaDao.getAllMedias();
+        }
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("medias", medias);
+        return Template.render("media_list.html", model);
     }
 }
