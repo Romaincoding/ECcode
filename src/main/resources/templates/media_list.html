@@ -1,32 +1,72 @@
 #parse("dashboard.html")
 #@mainLayout()
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 
 <div class="row">
-    <div class="col-md-4 offset-md-8">
-        <form action="/medias/" method="get">
-            <div class="form-group has-btn">
-                <input type="search" id="search" name="title" class="form-control"
-                       placeholder="Rechercher un film ou une série">
 
-                <button type="submit" class="btn btn-block bg-red">Valider</button>
-            </div>
-        </form>
+    <select class="form-control col-md-2">
+        <option selected disabled>Type de média</option>
+        <option value="Serie" >Série</option>
+        <option value="movie">Film</option>
+    </select>
+            <select class="form-control col-md-2">
+            <option selected disabled>Genre</option>
+            <option value="Action" >Action</option>
+            <option value="Horreur">Horreur</option>
+            <option value="Science-fiction">Science-fiction</option>
+            </select>
+    <select class="form-control col-md-2">
+        <option selected disabled>Année de sortie</option>
+        <option value="2000" >2000</option>
+        <option value="2005">2005</option>
+        <option value="2010">2010</option>
+    </select>
+    <form action="/medias/" method="get">
+        <div class="form-group has-btn">
+            <input type="search" id="search" name="title" class="form-control col-md-11"
+                   placeholder="Rechercher un film ou une série">
+            <button type="submit" class="btn btn-block bg-red">Valider</button>
+        </div>
+    </form>
+
     </div>
 </div>
 
 <div class="media-list">
     #foreach($media in $medias)
-        <a class="item" href="/medias/$media.getId()">
-            <div class="video">
-                <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="$media.getTrailerUrl()" ></iframe>
-                </div>
+    <a class="item" href="/medias/$media.getId()">
+        <div class="video">
+            <div class="text-center" id="image">
+                <iframe allowfullscreen="" frameborder="0"
+                        src="$media.getTrailerUrl()" ></iframe>
             </div>
-            <div class="title">
-                $media.getTitle()
+        </div>
+        <div class="title">
+            $media.getTitle()
+        </div>
+    </a>
+    #end
+</div>
+<div class="media-list">
+    #foreach($serie in $series)
+    <a class="item" href="/series/$serie.getId()">
+        <div class="video">
+            <div >
+                <iframe allowfullscreen="" frameborder="0"
+                        src="$serie.getImageUrl()" ></iframe>
             </div>
-        </a>
+        </div>
+        <div class="title">
+            $serie.getTitle()
+        </div>
+    </a>
     #end
 </div>
 #end
