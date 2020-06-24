@@ -20,13 +20,14 @@ public class MediaController {
 
         String title = request.queryParams("title");
         String type = request.queryParams("type");
-        medias=mediaDao.filterMedias(title,type);
+       // medias=mediaDao.filterMedias(title,type);
 
-       /* if (title != null && !title.isEmpty()) {
-            medias = mediaDao.filterMedias(title,type);*/
-       /* } else {
+        if (title == null && type == null) {
             medias = mediaDao.getAllMedias();
-        }*/
+        } else {
+            medias = mediaDao.filterMedias(title,type);
+
+        }
 
         Map<String, Object> model = new HashMap<>();
         model.put("medias", medias);

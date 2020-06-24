@@ -18,6 +18,13 @@
     padding-bottom: 25px;
 }
 
+#movie{
+
+    background: #0f6674;
+
+}
+
+
 .media-list .item .video {
     width: 100%;
 }
@@ -50,6 +57,11 @@
     color: #fff;
     padding: 8px 20px;
 
+}
+
+#image {
+    width: content-box;
+    height: content-box;
 }
 
 @media screen and (max-width: 768px) {

@@ -10,27 +10,28 @@
 </head>
 
 <div class="row">
+    <form action="/medias/" method="get">
 
-    <select class="form-control col-md-2">
+    <select name="type" class="form-control col-md-3 selectpiker" >
         <option selected disabled>Type de média</option>
         <option value="Serie" >Série</option>
         <option value="movie">Film</option>
     </select>
-            <select class="form-control col-md-2">
+            <select name="genre" class="form-control col-md-3 selectpicker" data-live-search="true">
             <option selected disabled>Genre</option>
-            <option value="Action" >Action</option>
-            <option value="Horreur">Horreur</option>
-            <option value="Science-fiction">Science-fiction</option>
+            <option value="1" >Action</option>
+            <option value="2">Horreur</option>
+            <option value="3">Science-fiction</option>
             </select>
-    <select class="form-control col-md-2">
+    <select name="year" class="form-control col-md-3 selectpicker">
         <option selected disabled>Année de sortie</option>
-        <option value="2000" >2000</option>
-        <option value="2005">2005</option>
-        <option value="2010">2010</option>
+        <option value="1999" >Avant 2000</option>
+        <option value="2000">2000-2010</option>
+        <option value="2010">2010-2020</option>
     </select>
-    <form action="/medias/" method="get">
+
         <div class="form-group has-btn">
-            <input type="search" id="search" name="title" class="form-control col-md-11"
+            <input type="search" id="search" name="title" class="form-control col-md-11 " data-live-search="true"
                    placeholder="Rechercher un film ou une série">
             <button type="submit" class="btn btn-block bg-red">Valider</button>
         </div>
@@ -41,7 +42,7 @@
 
 <div class="media-list">
     #foreach($media in $medias)
-    <a class="item" href="/medias/$media.getId()">
+    <a class="item" id="$media.getType()" href="/medias/$media.getId()">
         <div class="video">
             <div class="text-center" id="image">
                 <iframe allowfullscreen="" frameborder="0"
