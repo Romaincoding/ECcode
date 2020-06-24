@@ -21,10 +21,11 @@ public class HistoryController {
     public String list(Request request, Response res) {
         List<History> histories;
 
+
         Session session = request.session(true);
         String userIdStr = session.attribute("user_id");
         if (userIdStr == null || userIdStr.isEmpty()) {
-            Spark.halt(401, "No user id provded to see history");
+            Spark.halt(401, "No user id provided to see history");
         }
         int userId = Integer.parseInt(userIdStr);
 
@@ -35,5 +36,20 @@ public class HistoryController {
         model.put("user", user);
         model.put("histories", histories);
         return Template.render("history_list.html", model);
+    }
+
+    public String addToHistory(Request request, Response res){
+        System.out.printf("addtohistiry");
+
+      /*  String title = request.queryParams("title");
+        String type = request.queryParams("type");
+        String genre = request.queryParams("genre");
+        */
+
+      //  historyDao.addToHistory(user_id, media_id, start_date, finish_date,  watch_duration);
+        historyDao.addToHistory(2, 2, "2020-06-24 00:00:00", "2020-06-24 00:00:12",  5);
+        return "";
+
+
     }
 }

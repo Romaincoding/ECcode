@@ -40,4 +40,19 @@ public class HistoryDao {
                 rs.getInt(6) // watchDuration
         );
     }
+
+    public boolean addToHistory(int user_id,int media_id,String start_date,String finish_date, int watch_duration){
+
+        String s = "INSERT INTO `history` (`id`, `user_id`, `media_id`, `start_date`, `finish_date`, `watch_duration`) VALUES (NULL, '"+ user_id +"', '"+ media_id +"', '"+ start_date +"', '"+ finish_date +"', '"+ watch_duration +"');";
+        System.out.println(s);
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement(s);
+            st.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
