@@ -20,7 +20,22 @@
 
 #movie{
 
-    background: #0f6674;
+background-color: #0f6674;
+}
+
+#serie{
+
+ background-color: black;
+
+
+
+
+}
+.media-list .releaseDate{
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 20px;
+    text-align: center;
 
 }
 
