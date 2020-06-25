@@ -3,10 +3,14 @@ package com.codflix.backend;
 import com.codflix.backend.core.Conf;
 import com.codflix.backend.core.Database;
 import com.codflix.backend.core.Template;
+import com.codflix.backend.features.contact.ContactController;
+import com.codflix.backend.features.deleteAccount.DeleteController;
 import com.codflix.backend.features.genre.GenreController;
 import com.codflix.backend.features.history.HistoryController;
 import com.codflix.backend.features.media.MediaController;
 import com.codflix.backend.features.other.HomeController;
+import com.codflix.backend.features.profil.ProfilController;
+import com.codflix.backend.features.stream.StreamController;
 import com.codflix.backend.features.user.AuthController;
 import com.codflix.backend.middlewares.AuthMiddleware;
 import com.codflix.backend.middlewares.LoggerMiddleware;
@@ -27,11 +31,15 @@ public class App {
 
         // Controllers
         // Additional controllers should be declared and used here
+        DeleteController delete = new DeleteController();
         HomeController home = new HomeController();
+        ContactController contact = new ContactController();
         AuthController auth = new AuthController();
         GenreController genre = new GenreController();
         MediaController media = new MediaController();
         HistoryController history = new HistoryController();
+        ProfilController profil = new ProfilController();
+        StreamController stream = new StreamController();
 
         // Routes
         // Every request should be mapped here to a controller method
@@ -41,11 +49,24 @@ public class App {
         Spark.get("/signup", (req, res) -> auth.signUp(req, res));
         Spark.post("signup", (req, res) -> auth.signUp(req, res));
         Spark.get("logout", (req, res) -> auth.logout(req, res));
+        Spark.get("/contact",(req,res) -> contact.contact(req, res));
+        Spark.get("profil",(req,res) -> profil.profil(req, res));
+        Spark.post("profil",(req,res) -> profil.getChangeProfil(req, res));
 
-        Spark.get("/genres/", (req, res) -> genre.list(req, res));
+
+
+       Spark.get("/genres/", (req, res) -> genre.list(req, res));
+
         Spark.get("/medias/:id", (req, res) -> media.detail(req, res));
         Spark.get("/medias/", (req, res) -> media.list(req, res));
+        Spark.get("/delete/", (req, res) -> delete.delete(req, res));
+        Spark.post("delete", (req, res) -> delete.deleteAccount(req, res));
+        Spark.get("/stream",(req, res) -> stream.stream(req,res));
+
+
+
         Spark.get("/histories/", (req, res) -> history.list(req, res));
+        Spark.post("histories", (req, res) -> history.list(req, res));
 
         Spark.get("/", (req, res) -> home.home(req, res));
     }
