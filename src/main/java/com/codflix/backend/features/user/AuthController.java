@@ -41,10 +41,13 @@ public class AuthController {
             return "KO";
         }
 
-        // Create session
+        // Create
+        System.out.println("user="+ user.getId());
         Session session = request.session(true);
         session.attribute("user_id", user.getId());
         response.cookie("/", "user_id", "" + user.getId(), 3600, true);
+
+
 
         // Redirect to medias page
         response.redirect(Conf.ROUTE_LOGGED_ROOT);
@@ -60,9 +63,6 @@ public class AuthController {
         String email = query.get("email");
         String password = query.get("password");
         String passwordConfirm = query.get("password_confirm");
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(passwordConfirm);
 
         if (!password.equals(passwordConfirm) ) {
             return "KO";
@@ -71,9 +71,9 @@ public class AuthController {
        if (!userDao.insertNewUser(email,hash(password))){
            return "bad subscription";
        }
+       User user = new User(email,hash(password));
 
-        // Authenticate user
-        User user = userDao.getUserByCredentials(email, password);
+        
         if (user == null) {
             logger.info("User not found. Redirect to login");
             response.removeCookie("session");
