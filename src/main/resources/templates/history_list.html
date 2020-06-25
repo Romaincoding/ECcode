@@ -6,7 +6,7 @@
 </h1>
 
 <div>
-    User: $user.getEmail()
+
 </div>
 
 <div>
@@ -15,6 +15,7 @@
 
     #foreach($history in $histories)
         <li>id: $history.getId(), userId=$history.getUserId(), mediaId=$history.getMediaId()</li>
+        <li>$media.getTrailer()</li>
     #end
     </ul>
 </div>

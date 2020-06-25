@@ -12,17 +12,12 @@ public class ProfilDao {
     UserDao userDao = new UserDao();
 
 
-
-    public User getUserInformations(int user_id){
-
-       User user = userDao.getUserById(user_id);
-       return user;
-    }
-
     /***
      * function that allows to update the users's email in the database
-     * @param email is the new email chose by the user
+     * @param email new email chose by the user
+     * @param id of the user in database
      */
+
     public void updateEmail(String email,int id) {
         Connection connection = Database.get().getConnection();
         try {
@@ -39,7 +34,8 @@ public class ProfilDao {
 
     /***
      * function that allows to update the users's password in the database
-     * @param password is the new password chose by the user
+     * @param password new password chose by the user
+     * @param id of the user in database
      */
         public void updatePassword(String password,int id){
             Connection connection = Database.get().getConnection();
@@ -56,7 +52,6 @@ public class ProfilDao {
             }
 
     }
-
 
     }
 

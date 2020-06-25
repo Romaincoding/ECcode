@@ -73,7 +73,7 @@ public class AuthController {
        }
        User user = new User(email,hash(password));
 
-        
+
         if (user == null) {
             logger.info("User not found. Redirect to login");
             response.removeCookie("session");

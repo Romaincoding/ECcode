@@ -16,7 +16,7 @@ public class HistoryDao {
         List<History> histories = new ArrayList<>();
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM stream_history WHERE user_id=?");
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM history WHERE user_id=?");
 
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
@@ -41,6 +41,15 @@ public class HistoryDao {
         );
     }
 
+    /***
+     * function that allows to add informations in the table history of the database
+     * @param user_id
+     * @param media_id
+     * @param start_date
+     * @param finish_date
+     * @param watch_duration
+     * @return a boolean
+     */
     public boolean addToHistory(int user_id,int media_id,String start_date,String finish_date, int watch_duration){
 
         String s = "INSERT INTO `history` (`id`, `user_id`, `media_id`, `start_date`, `finish_date`, `watch_duration`) VALUES (NULL, '"+ user_id +"', '"+ media_id +"', '"+ start_date +"', '"+ finish_date +"', '"+ watch_duration +"');";
@@ -55,4 +64,41 @@ public class HistoryDao {
             return false;
         }
     }
-}
+
+    /***
+     * function that allows to delete all history in database
+     * @return a boolean
+     */
+    public boolean deleteAllHistory(){
+        String s = "DELETE FROM `history`";
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement(s);
+            st.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /***
+     * function that allows to delete one element of history in database
+     * @param id
+     * @return
+     */
+    public boolean deleteElementOfHistory(int id){
+        String s = "DELETE FROM `history` WHERE id=?";
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement(s);
+            st.setInt(1,id);
+            st.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    }
+

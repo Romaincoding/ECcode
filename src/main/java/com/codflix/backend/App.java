@@ -61,7 +61,9 @@ public class App {
         Spark.get("/medias/", (req, res) -> media.list(req, res));
         Spark.get("/delete/", (req, res) -> delete.delete(req, res));
         Spark.post("delete", (req, res) -> delete.deleteAccount(req, res));
-        Spark.get("/stream",(req, res) -> stream.stream(req,res));
+        Spark.get("/stream/",(req, res) -> stream.stream(req,res));
+
+
 
 
 

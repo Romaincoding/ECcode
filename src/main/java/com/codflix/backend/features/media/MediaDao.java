@@ -82,7 +82,7 @@ public class MediaDao {
     public List<Media> filterMediasByGenre(int genre) {
         List<Media> medias = new ArrayList<>();
         Connection connection = Database.get().getConnection();
-        System.out.println("j'arrive la?");
+
         try {
             PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE genre_id=? ORDER BY release_date DESC");
             st.setInt(1, genre);

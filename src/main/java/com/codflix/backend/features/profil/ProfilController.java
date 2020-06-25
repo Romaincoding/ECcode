@@ -32,7 +32,7 @@ public class ProfilController {
     }
 
     /***
-     * function that gets inputs of the user
+     * function that gets inputs of the user and verify password and send informations to ProfilDao
      * @param request
      * @param response
      * @return a String to know if things are ok
@@ -46,9 +46,7 @@ public class ProfilController {
         String email = query.get("email");
         String password = query.get("password");
         String passwordConfirm = query.get("password_confirm");
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(passwordConfirm);
+
 
         if (authController.hash(passwordConfirm).equals(user.getPassword())) {
             if (!email.isEmpty()){
@@ -61,7 +59,7 @@ public class ProfilController {
             }
 
         }
-        return "ok";
+        return "Vos informations ont bien été enregistrées";
     }
 
 

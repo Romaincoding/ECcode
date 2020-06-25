@@ -19,6 +19,7 @@ public class UserDao {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 user = mapToUser(rs);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,6 +27,7 @@ public class UserDao {
 
         return user;
     }
+
 
     private User mapToUser(ResultSet rs) throws SQLException {
         return new User(

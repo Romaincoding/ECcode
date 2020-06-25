@@ -33,23 +33,23 @@ public class DeleteController {
     }
 
 
-
-
-
+    /***
+     * function that verify password and send informations to DeleteDao to delete an account in the database
+     * @param request
+     * @param response
+     * @return
+     */
     public String deleteAccount(Request request, Response response) {
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String password = query.get("password");
-        System.out.println("deletecontrollerok");
-        System.out.println("1ER mdp" + authController.hash(password));
-        System.out.println("2eme mdp" + user.getPassword());
         if (authController.hash(password).equals(user.getPassword())) {
 
             deleteDao.deleteAccount(user.getId());
 
 
-            return "Ok";
+            return "Votre compte a bien été supprimé!";
         }
-        return "Ko";
+        return "Oups désolé il y a eu un problème!";
     }
 
 }
